@@ -1,0 +1,7 @@
+.idea/
+logs/
+*.pyc
+db.sqlite3
+secure.py
+migrations/
+
