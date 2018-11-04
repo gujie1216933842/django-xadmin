@@ -1,1 +1,1 @@
-"# django-xadmin" 
+# django-xadmin
