@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +42,9 @@ INSTALLED_APPS = [
     'operation.apps.OperationConfig',
     'courses.apps.CoursesConfig',
     'organization.apps.OrganizationConfig',
+    'xadmin',
+    'crispy_forms',
+    'DjangoUeditor',
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 
