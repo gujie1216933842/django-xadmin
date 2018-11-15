@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for django_xadmin project.
 
@@ -9,7 +10,7 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-# -*- coding: utf-8 -*-
+
 import os
 import sys
 
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'operation.apps.OperationConfig',
     'courses.apps.CoursesConfig',
     'organization.apps.OrganizationConfig',
-    'xadmin',
+    'xadmin',     # username: admin   ,password: 同qq
     'crispy_forms',
     'DjangoUeditor',
 ]
