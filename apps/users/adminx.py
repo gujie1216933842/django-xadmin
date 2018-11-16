@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import xadmin
-from .models import EmailVerifyRecode
+from .models import EmailVerifyRecode, Banner
 from xadmin import views
 
 
@@ -21,7 +21,14 @@ class EmailVerifyRecordAdmin(object):
     list_filter = ['code', 'email', 'send_type', 'send_time']
 
 
+class BannerAdmin(object):
+    list_display = ['title', 'image', 'url', 'index', 'add_time']
+    search_fields = ['title', 'image', 'url', 'index']
+    list_filter = ['title', 'image', 'url', 'index', 'add_time']
+
+
 xadmin.site.register(EmailVerifyRecode, EmailVerifyRecordAdmin)
+xadmin.site.register(Banner, BannerAdmin)
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
