@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
+from django.views.generic.base import View
+from .forms import LoginForm
 
 
 # Create your views here.
@@ -30,15 +32,19 @@ def index(request):
     EmailVerifyRecode.objects.filter()
 
 
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = authenticate(username, password)
-        if user is not None:
-            login(request, user)
-            return render(request, "index.html", locals())
+class LoginView(View):
+    def post(self, request):
+        loginform = LoginForm(request.POST)
+        if loginform.is_valid():
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            user = authenticate(username, password)
+            if user is not None:
+                login(request, user)
+                return render(request, "index.html", locals())
+            else:
+                return render(request, 'login.html', )
         else:
-            return render(request, 'login.html', locals())
-
-    return render(request, 'login.html', locals())
+            return render(request,'login.html')
+    def get(self, request):
+        return render(request, 'login.html', locals())
