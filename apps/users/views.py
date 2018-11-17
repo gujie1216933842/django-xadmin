@@ -21,6 +21,7 @@ class CustomBackend(ModelBackend):
         :return:
         """
         try:
+            print('-------------------------:', username, password)
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
             if user.check_password(password):
                 return user
@@ -33,9 +34,12 @@ def index(request):
 
 
 class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html')
+
     def post(self, request):
-        loginform = LoginForm(request.POST)
-        if loginform.is_valid():
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = authenticate(username=username, password=password)
@@ -43,9 +47,6 @@ class LoginView(View):
                 login(request, user)
                 return render(request, "index.html", locals())
             else:
-                return render(request, 'login.html', )
+                return render(request, 'login.html', {'msg': '用户名或密码不正确'})
         else:
-            return render(request, 'login.html')
-
-    def get(self, request):
-        return render(request, 'login.html', locals())
+            return render(request, 'login.html', {'login_form': login_form})
