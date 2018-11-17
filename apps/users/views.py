@@ -38,13 +38,14 @@ class LoginView(View):
         if loginform.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
-            user = authenticate(username, password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return render(request, "index.html", locals())
             else:
                 return render(request, 'login.html', )
         else:
-            return render(request,'login.html')
+            return render(request, 'login.html')
+
     def get(self, request):
         return render(request, 'login.html', locals())
