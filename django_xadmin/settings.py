@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'xadmin',  # username: admin   ,password: 同qq
     'crispy_forms',
     'DjangoUeditor',
+    'captcha',
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 
