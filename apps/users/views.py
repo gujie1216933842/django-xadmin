@@ -10,6 +10,7 @@ from .forms import LoginForm, RegisterForm
 from django.contrib.auth.hashers import make_password
 from utils.email_send import send_register_email
 
+
 # Create your views here.
 
 class CustomBackend(ModelBackend):
@@ -59,7 +60,7 @@ class RegisterView(View):
         return render(request, 'register.html', locals())
 
     def post(self, request):
-        register_form = RegisterForm()
+        register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
@@ -68,4 +69,7 @@ class RegisterView(View):
             user_profile.email = username
             user_profile.password = make_password(password)
             user_profile.save()
-            send_register_email(username,'register')
+            send_register_email(username, 'register')
+            return render(request, 'login.html')
+        else:
+            return render(request, 'register.html')
