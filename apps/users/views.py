@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.views.generic.base import View
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.hashers import make_password
-
+from utils.email_send import send_register_email
 
 # Create your views here.
 
@@ -68,3 +68,4 @@ class RegisterView(View):
             user_profile.email = username
             user_profile.password = make_password(password)
             user_profile.save()
+            send_register_email(username,'register')
