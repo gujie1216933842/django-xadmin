@@ -1,0 +1,32 @@
+https://blog.csdn.net/csdntt00/article/details/78279175
+1. PyCharm常用快捷键
+Ctrl + / # 注释
+Ctrl + A # 全选
+Ctrl + C # 不需要选中一行，直接复制整行内容
+Ctrl + X #不需要选中一行，直接剪切整行内容
+Ctrl + V # 粘贴
+Ctrl + D # 复制并粘贴，直接在下一行粘贴该行整行（或选中）的内容
+Ctrl + Z # 回退到上一步操作
+Ctrl + Shift + N # 通过文件名快速查找工程内的文件
+Tab # 选中一段代码然后按 Tab 可以进行缩进
+Shift + Tab # 选中一段代码然后按 Shift + Tab 可以进行反向缩进
+Ctrl + Alt + L # 选中一段代码自动调整缩进格式（有的是Ctrl + Alt + I）
+Alt + Enter # 导入系统模块
+Shift + Enter # 回车到下一行（跟 vim 中的 o 功能一样，无需把光标定位到行末再回车）
+Shift + F10 # 运行程序
+
+2. 如何运行Python代码
+如运行test.py脚本
+1.1 在Linux中
+a. 直接在命令行中执行python test.py命令
+b. 先给脚本加上执行权限 chmod +x test.py，然后再执行该脚本 ./test/py
+1.2 在Windows中
+a. 进入到cmd，切换到脚本存放目录，执行python test.py命令
+b. 使用PyCharm工具，快捷键Shift + F10执行程序，或者点击Run进行运行
+c. 使用Python自带的IDE打开脚本，运行程序
+
+3. PyCharm的调试模式
+F9：进入调试模式选择框，可以选择进行调试的脚本（）
+F8：一直往下一步走，每次跳一步，遇到调用方法（函数）时，直接返回函数结果，仍然继续往下
+F7：一直往下一步走，当遇到调用方法（函数）时，跳到该方法（函数）位置，执行完函数后再回到原来位置继续往下走
+Shift + F9：直接进入Debugger模式，在Debugger中的Variables中可以查看步骤执行之后的变量值，想要查看没有显示的变量值，可以通过“+”号添加，或者“-”号移除
