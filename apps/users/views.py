@@ -46,6 +46,7 @@ class LoginView(View):
             password = request.POST.get('password', '')
             user = authenticate(username=username, password=password)
             if user is not None:
+
                 login(request, user)
                 return render(request, "index.html", locals())
             else:
@@ -73,3 +74,14 @@ class RegisterView(View):
             return render(request, 'login.html')
         else:
             return render(request, 'register.html')
+
+
+class ActiveUserView(View):
+    def get(self, request, active_code):
+        rows_record = EmailVerifyRecode.objects.filter(code=active_code)
+        for row_record in rows_record:
+            email = row_record.email
+            user = UserProfile.objects.get(email=email)
+            user.is_active = True
+            user.save()
+        return render(request, 'login.html')

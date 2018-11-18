@@ -128,7 +128,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -140,7 +140,7 @@ STATICFILES_DIRS = (
 
 # django自己去登录我们配置的邮箱,然后通过配置的邮箱去发送邮件
 EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 25
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'gujientsy@163.com'
 EMAIL_HOST_PASSWORD = '86917307xx'
 EMAIL_USE_TLS = False
