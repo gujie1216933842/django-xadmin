@@ -64,6 +64,11 @@ class RegisterView(View):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             username = request.POST.get('email', '')
+            # 判断用户是否已经存在
+            if UserProfile.objects.filter(email=username):
+                msg = '用户已经存在'
+                return render(request, 'register.html', locals())
+
             password = request.POST.get('password', '')
             user_profile = UserProfile()
             user_profile.username = username
@@ -79,9 +84,19 @@ class RegisterView(View):
 class ActiveUserView(View):
     def get(self, request, active_code):
         rows_record = EmailVerifyRecode.objects.filter(code=active_code)
-        for row_record in rows_record:
-            email = row_record.email
-            user = UserProfile.objects.get(email=email)
-            user.is_active = True
-            user.save()
+        if rows_record:
+            for row_record in rows_record:
+                email = row_record.email
+                user = UserProfile.objects.get(email=email)
+                user.is_active = True
+                user.save()
+        else:
+            return render(request, 'active_fail.html')
         return render(request, 'login.html')
+
+
+class ForgetPwdView(View):
+    def get(self, request):
+        return render(request, 'forgetpwd.html', locals())
+
+
