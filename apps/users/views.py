@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm,ForgetForm
 from django.contrib.auth.hashers import make_password
 from utils.email_send import send_register_email
 
@@ -97,6 +97,15 @@ class ActiveUserView(View):
 
 class ForgetPwdView(View):
     def get(self, request):
+        register_form = RegisterForm()
         return render(request, 'forgetpwd.html', locals())
 
+    def post(self, request):
+        register_form = ForgetForm(request.POST)
+        if register_form.is_valid():
+            email = request.POST.get('email', '')
 
+            send_register_email(email, 'forget')
+            return render(request, 'send_success.html', locals())
+        else:
+            return render(request, 'forgetpwd.html', locals())
