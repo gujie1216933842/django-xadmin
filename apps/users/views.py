@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
-from .forms import LoginForm, RegisterForm,ForgetForm
+from .forms import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm
 from django.contrib.auth.hashers import make_password
 from utils.email_send import send_register_email
 
@@ -109,3 +109,36 @@ class ForgetPwdView(View):
             return render(request, 'send_success.html', locals())
         else:
             return render(request, 'forgetpwd.html', locals())
+
+
+class ResetView(View):
+    def get(self, request, active_code):
+        rows_record = EmailVerifyRecode.objects.filter(code=active_code)
+        if rows_record:
+            for row_record in rows_record:
+                email = row_record.email
+                return render(request, 'password_reset.html', locals())
+        else:
+            return render(request, 'active_fail.html')
+        return render(request, 'login.html')
+
+
+class ModifyPwdView(View):
+    def post(self, request):
+        modify_form = ModifyPwdForm(request.POST)
+        if modify_form.is_valid():
+            pwd1 = request.POST.get('password1', '')
+            pwd2 = request.POST.get('password2', '')
+            email = request.POST.get('email', '')
+            if pwd1 != pwd2:
+                msg = '密码不一致!'
+                return render(request, 'password_reset.html', locals())
+            # 密码一致,进入密码修改流程
+            user = UserProfile.objects.get(email=email)
+            user.password = make_password(pwd2)
+            user.save()
+
+            # 密码修改成功 ,返回 登录页面
+            return render(request, 'login.html', locals())
+        else:
+            return render(request, '', locals())
