@@ -75,7 +75,7 @@ class RegisterView(View):
             user_profile.password = make_password(password)
             user_profile.save()
             send_register_email(username, 'register')
-            return render(request, 'login.html')
+            return render(request, 'send_success.html')
         else:
             return render(request, 'register.html')
 
