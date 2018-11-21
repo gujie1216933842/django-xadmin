@@ -87,11 +87,11 @@ class ActiveUserView(View):
             for row_record in rows_record:
                 email = row_record.email
                 user = UserProfile.objects.get(email=email)
-                user.is_active = True
+                user.is_staff = True
                 user.save()
         else:
             return render(request, 'active_fail.html')
-        return render(request, 'login.html')
+        return render(request, 'active_success.html')
 
 
 class ForgetPwdView(View):
