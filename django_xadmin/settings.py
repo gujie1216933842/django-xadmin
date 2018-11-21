@@ -140,8 +140,8 @@ STATICFILES_DIRS = (
 
 # django自己去登录我们配置的邮箱,然后通过配置的邮箱去发送邮件
 EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 465
+EMAIL_PORT = 25
 EMAIL_HOST_USER = 'gujientsy@163.com'
-EMAIL_HOST_PASSWORD = '86917307xx'
+EMAIL_HOST_PASSWORD = '86917307x'
 EMAIL_USE_TLS = False
 EMAIL_FROM = 'gujientsy@163.com'
