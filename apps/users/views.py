@@ -23,7 +23,6 @@ class CustomBackend(ModelBackend):
         :return:
         """
         try:
-            print('-------------------------:', username, password)
             user = UserProfile.objects.get(Q(username=username) | Q(email=username))
             if user.check_password(password):
                 return user

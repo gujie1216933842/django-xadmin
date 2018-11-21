@@ -37,7 +37,7 @@ def send_register_email(email, send_type='register'):
 
         if send_status:
             print 'into send_status'
-    elif send_type=='forget':
+    elif send_type == 'forget':
         email_title = 'django在线学习网重新找回密码'
         email_body = '请点击下面的链接重新找回账户密码: http://127.0.0.1:8000/reset/'
 
