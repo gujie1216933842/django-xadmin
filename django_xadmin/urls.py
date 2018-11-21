@@ -26,8 +26,9 @@ urlpatterns = [
     # url(r'^login/$', user_login, name="login"),
     url(r'^login/$', LoginView.as_view(), name="login"),
     url(r'^register/$', RegisterView.as_view(), name="register"),
-    url(r'^active/(/P<active_code>.*)/$', ActiveUserView.as_view(), name="active"),
-    url(r'^reset/(/P<active_code>.*)/$', ResetView.as_view(), name="reset"),
+    url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name="active"),
+
+    url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset"),
     url(r'^forgetpwd/$', ForgetPwdView.as_view(), name="forgetpwd"),
     url(r'^modifypwd/$', ModifyPwdView.as_view(), name="modifypwd"),
 

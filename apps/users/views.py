@@ -119,7 +119,7 @@ class ResetView(View):
                 return render(request, 'password_reset.html', locals())
         else:
             return render(request, 'active_fail.html')
-        return render(request, 'login.html')
+        return render(request, 'active_success.html')
 
 
 class ModifyPwdView(View):
