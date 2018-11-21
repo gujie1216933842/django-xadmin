@@ -13,6 +13,7 @@ class OrgView(View):
 
     def get(self, request):
         all_orgs = CoursesOrg.objects.all()  # 所有机构
+
         all_citys = CityDict.objects.all()  # 所有城市
 
 
