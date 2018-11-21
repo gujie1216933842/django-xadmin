@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media'
             ],
         },
     },
@@ -145,3 +146,6 @@ EMAIL_HOST_USER = 'gujientsy@163.com'
 EMAIL_HOST_PASSWORD = '86917307x'
 EMAIL_USE_TLS = False
 EMAIL_FROM = 'gujientsy@163.com'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

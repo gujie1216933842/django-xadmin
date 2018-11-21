@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 import xadmin
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
 from organization.views import OrgView
+from django_xadmin.settings import MEDIA_ROOT
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -35,6 +37,8 @@ urlpatterns = [
     url(r'^modifypwd/$', ModifyPwdView.as_view(), name="modifypwd"),
 
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
+
+    url(r'', serve, {'document_root': MEDIA_ROOT}),
 
     url(r'^captcha/', include('captcha.urls')),
 ]
