@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """django_xadmin URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,6 +19,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 import xadmin
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
+from organization.views import OrgView
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -31,6 +33,8 @@ urlpatterns = [
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset"),
     url(r'^forgetpwd/$', ForgetPwdView.as_view(), name="forgetpwd"),
     url(r'^modifypwd/$', ModifyPwdView.as_view(), name="modifypwd"),
+
+    url(r'^org_list/$', OrgView.as_view(), name="org_list"),
 
     url(r'^captcha/', include('captcha.urls')),
 ]
