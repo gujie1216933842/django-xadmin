@@ -38,7 +38,7 @@ urlpatterns = [
 
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
 
-    url(r'', serve, {'document_root': MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 
     url(r'^captcha/', include('captcha.urls')),
 ]
