@@ -43,7 +43,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="all">共<span class="key">15</span>家</div>
+		<div class="all">共<span class="key">{{ org_nums }}</span>家</div>
 		<div class="butler_list company list">
 		<div class="layout">
 			<div class="head">
@@ -92,35 +92,32 @@
 
 
 		</div>
-		 <div class="pageturn">
-            <ul class="pagelist">
+            <div class="pageturn">
+                <ul class="pagelist">
+                {#上一页的逻辑#}
+                    {% if all_orgs.has_previous %}
+                        <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">前一页</a></li>
 
-
-
-
-
-                            <li class="active"><a href="?page=1">1</a></li>
-
-
-
-
-
-                            <li><a href="?page=2" class="page">2</a></li>
-
-
-
-
-
-                            <li><a href="?page=3" class="page">3</a></li>
-
-
-
-
-                    <li class="long"><a href="?page=2">下一页</a></li>
-
+                    {% endif %}
+{#                     中间逻辑 #}
+                    {% for page in all_orgs.pages %}
+                        {% if page %}
+                            {% ifequal page all_orgs.number %}
+                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                            {% else %}
+                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                            {% endifequal %}
+                        {% else %}
+                            <li class="none"><a href="" class="page">...</a></li>
+                        {% endif %}
+                    {% endfor %}
+{#                    下一页的逻辑#}
+                    {% if all_orgs.has_next %}
+                        <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">后一页</a></li>
+                    {% endif %}
 
             </ul>
-        </div>
+            </div>
 		</div>
 	</div>
 	<div class="right companyright">
