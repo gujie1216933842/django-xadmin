@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from .models import CoursesOrg, CityDict
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class OrgView(View):
     """
@@ -19,13 +19,17 @@ class OrgView(View):
         all_citys = CityDict.objects.all()  # 所有城市
 
         # 对课程机构进行分页
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-        p = Paginator(all_orgs, 3, request=request)
-        print(p)
-        orgs = p.page(page)
-        print(orgs)
+        paginator = Paginator(all_orgs, 2)  # Show 25 contacts per page
 
-        return render(request, 'org-list.html',locals())
+        page = request.GET.get('page')
+        try:
+            all_orgs = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            all_orgs = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            all_orgs = paginator.page(paginator.num_pages)
+
+
+        return render(request, 'org-list.html', locals())

@@ -92,32 +92,57 @@
 
 
 		</div>
-            <div class="pageturn">
-                <ul class="pagelist">
+{#            <div class="pageturn">#}
+{#                <ul class="pagelist">#}
                 {#上一页的逻辑#}
-                    {% if all_orgs.has_previous %}
-                        <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">前一页</a></li>
-
-                    {% endif %}
+{#                    {% if all_orgs.has_previous %}#}
+{#                        <li class="long"><a href="?{{ all_orgs.previous_page_number.querystring }}">前一页</a></li>#}
+{##}
+{#                    {% endif %}#}
 {#                     中间逻辑 #}
-                    {% for page in all_orgs.pages %}
-                        {% if page %}
-                            {% ifequal page all_orgs.number %}
-                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+{#                    {% for page in all_orgs.pages %}#}
+{#                        {% if page %}#}
+{#                            {% ifequal page all_orgs.number %}#}
+{#                                <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>#}
+{#                            {% else %}#}
+{#                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>#}
+{#                            {% endifequal %}#}
+{#                        {% else %}#}
+{#                            <li class="none"><a href="" class="page">...</a></li>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{#                    下一页的逻辑#}
+{#                    {% if all_orgs.has_next %}#}
+{#                        <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">后一页</a></li>#}
+{#                    {% endif %}#}
+{##}
+{#            </ul>#}
+{#            </div>#}
+
+            <div class="pageturn">
+            <ul class="pagelist">
+                    {% if all_orgs.has_previous %}
+                        <li class="long"><a href="/?page={{ all_orgs.previous_page_number }}">上一页</a></li>
+                    {% endif %}
+                    {% for num  in paginator.page_range %}
+                        {% if num %}
+                            {% if  num == currentPage %}
+                                <li class="active"><a href="/?page={{ num }}">{{ num }}</a></li>
                             {% else %}
-                                <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
-                            {% endifequal %}
+                                <li><a href="/?page={{ num }}" class="page">{{ num }}</a></li>
+                            {% endif %}
                         {% else %}
-                            <li class="none"><a href="" class="page">...</a></li>
+                            <li class="none"><a href="">...</a> </li>
                         {% endif %}
                     {% endfor %}
-{#                    下一页的逻辑#}
                     {% if all_orgs.has_next %}
-                        <li class="long"><a href="?{{ all_orgs.next_page_number.querystring }}">后一页</a></li>
+                        <li class="long"><a href="?/?page={{ all_orgs.next_page_number  }}">下一页</a></li>
                     {% endif %}
-
             </ul>
-            </div>
+        </div>
+
+
+
 		</div>
 	</div>
 	<div class="right companyright">
