@@ -7,6 +7,7 @@ from .models import CoursesOrg, CityDict
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+
 class OrgView(View):
     """
     课程机构列表功能
@@ -22,14 +23,13 @@ class OrgView(View):
         paginator = Paginator(all_orgs, 2)  # Show 25 contacts per page
 
         page = request.GET.get('page')
+        currentPage = int(page)
         try:
             all_orgs = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
             all_orgs = paginator.page(1)
         except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
             all_orgs = paginator.page(paginator.num_pages)
-
 
         return render(request, 'org-list.html', locals())
