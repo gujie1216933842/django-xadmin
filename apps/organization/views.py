@@ -22,8 +22,14 @@ class OrgView(View):
         # 对课程机构进行分页
         paginator = Paginator(all_orgs, 2)  # Show 25 contacts per page
 
+        # 取出帅选城市
+        city_id = request.GET.get('city','')
+        print(city_id)
+        if city_id:
+            print(city_id)
+            all_orgs = CoursesOrg.objects.filter(city_id=2)
         page = request.GET.get('page')
-        currentPage = int(page)
+        currentPage = page
         try:
             all_orgs = paginator.page(page)
         except PageNotAnInteger:
