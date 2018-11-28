@@ -19,17 +19,18 @@ class OrgView(View):
 
         all_citys = CityDict.objects.all()  # 所有城市
 
-        # 对课程机构进行分页
-        paginator = Paginator(all_orgs, 2)  # Show 25 contacts per page
-
         # 取出帅选城市
-        city_id = request.GET.get('city','')
-        print(city_id)
+        city_id = request.GET.get('city', '')
         if city_id:
             print(city_id)
-            all_orgs = CoursesOrg.objects.filter(city_id=2)
-        page = request.GET.get('page')
-        currentPage = page
+            all_orgs = CoursesOrg.objects.filter(city_id=city_id)
+            print(all_orgs)
+
+        # 对课程机构进行分页, 第二个参数表示每页设置2页
+        paginator = Paginator(all_orgs, 2)
+
+        page = request.GET.get('page', 1)
+        currentPage = int(page)
         try:
             all_orgs = paginator.page(page)
         except PageNotAnInteger:

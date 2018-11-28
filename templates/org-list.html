@@ -104,13 +104,13 @@
                             {% endif %}
                             {% for num  in paginator.page_range %}
                                 {% if num %}
-                                    {% if  num == currentPage %}
+                                    {% ifequal  num currentPage %}
                                         <li class="active"><a href="{% url 'org_list' %}?page={{ num }}">{{ num }}</a>
                                         </li>
                                     {% else %}
                                         <li><a href="{% url 'org_list' %}?page={{ num }}" class="page">{{ num }}</a>
                                         </li>
-                                    {% endif %}
+                                    {% endifequal %}
                                 {% else %}
                                     <li class="none"><a href="">...</a></li>
                                 {% endif %}
