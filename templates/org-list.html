@@ -21,14 +21,15 @@
                         <li>
                             <h2>机构类别</h2>
                             <div class="cont">
+                                {% if category == '' %}
                                 <a href="?city="><span class="active2">全部</span></a>
-
-                                <a href="?ct=pxjg&city="><span class="">培训机构</span></a>
-
-                                <a href="?ct=gx&city="><span class="">高校</span></a>
-
-                                <a href="?ct=gr&city="><span class="">个人</span></a>
-
+                                {% elif category == 'pxjg' %}
+                                <a href="?ct=pxjg&city={{ city_id }}&page={{ page }}"><span class="">培训机构</span></a>
+                                {% elif category == 'gx' %}
+                                <a href="?ct=gx&city={{ city_id }}&page={{ page }}"><span class="">高校</span></a>
+                                {% elif category == 'ct' %}
+                                <a href="?ct=gr&city={{ city_id }}&page={{ page }}"><span class="">个人</span></a>
+                                {% endif %}
                             </div>
                         </li>
                         <li>
@@ -99,25 +100,25 @@
                         <ul class="pagelist">
                             {% if all_orgs.has_previous %}
                                 <li class="long"><a
-                                        href="{% url 'org_list' %}?page={{ all_orgs.previous_page_number }}">上一页</a>
+                                        href="?city={{ city_id }}&page={{ all_orgs.previous_page_number }}">上一页</a>
                                 </li>
                             {% endif %}
                             {% for num  in paginator.page_range %}
                                 {% if num %}
-                                    {% if  num == currentPage %}
-                                        <li class="active"><a href="{% url 'org_list' %}?page={{ num }}">{{ num }}</a>
+                                    {% ifequal  num currentPage %}
+                                        <li class="active"><a href="?city={{ city_id }}&page={{ num }}">{{ num }}</a>
                                         </li>
                                     {% else %}
-                                        <li><a href="{% url 'org_list' %}?page={{ num }}" class="page">{{ num }}</a>
+                                        <li><a href="?city={{ city_id }}&page={{ num }}" class="page">{{ num }}</a>
                                         </li>
-                                    {% endif %}
+                                    {% endifequal %}
                                 {% else %}
                                     <li class="none"><a href="">...</a></li>
                                 {% endif %}
                             {% endfor %}
                             {% if all_orgs.has_next %}
                                 <li class="long"><a
-                                        href="{% url 'org_list' %}?page={{ all_orgs.next_page_number }}">下一页</a></li>
+                                        href="?city={{ city_id }}&page={{ all_orgs.next_page_number }}">下一页</a></li>
                             {% endif %}
                         </ul>
                     </div>
