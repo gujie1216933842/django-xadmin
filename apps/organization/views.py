@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from .models import CoursesOrg, CityDict
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import UserAskForm
 
 
 class OrgView(View):
@@ -63,3 +64,10 @@ class OrgView(View):
             all_orgs = paginator.page(paginator.num_pages)
 
         return render(request, 'org-list.html', locals())
+
+
+class AddUserAskView(View):
+    def post(self, request):
+        userask_form = UserAskForm(request.POST)
+        if userask_form.valid():
+            user_ask = userask_form.save(commit=True)
