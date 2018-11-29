@@ -35,7 +35,8 @@
                             <h2>所在地区</h2>
                             <div class="more">更多</div>
                             <div class="cont">
-                                <a href="?ct={{ category }}"><span class="{% if current_city_id == '' %}active2{% endif %}">全部</span></a>
+                                <a href="?ct={{ category }}"><span
+                                        class="{% if current_city_id == '' %}active2{% endif %}">全部</span></a>
                                 {% for city in all_citys %}
                                     <a href="?city={{ city.id }}"><span
                                             class="{% if city.id == current_city_id %}active2{% endif %}">{{ city.name }}</span></a>
@@ -77,9 +78,9 @@
                                         </a>
                                     </div>
                                     <ul class="cont">
-                                        <li class="first"><p class="pic9">课程数：<span>1</span></p>
-                                            <p class="c7">学习人数：<span>1000</span></p></li>
-                                        <li class="c8" style="padding-left:18px;">北京市海淀区中关村北大街</li>
+                                        <li class="first"><p class="pic9">课程数：<span>{{ org.course_nums }}</span></p>
+                                            <p class="c7">学习人数：<span>{{ org.students }}</span></p></li>
+                                        <li class="c8" style="padding-left:18px;">{{ org.adress }}</li>
                                         <li class="pic10" style="padding-left:18px;">经典课程：
 
                                             <a href="/diary/19/">c语言基础入门</a>
@@ -106,10 +107,12 @@
                             {% for num  in paginator.page_range %}
                                 {% if num %}
                                     {% ifequal  num current_page %}
-                                        <li class="active"><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}">{{ num }}</a>
+                                        <li class="active"><a
+                                                href="?city={{ city_id }}&ct={{ category }}&page={{ num }}">{{ num }}</a>
                                         </li>
                                     {% else %}
-                                        <li><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}" class="page">{{ num }}</a>
+                                        <li><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}"
+                                               class="page">{{ num }}</a>
                                         </li>
                                     {% endifequal %}
                                 {% else %}
@@ -118,7 +121,8 @@
                             {% endfor %}
                             {% if all_orgs.has_next %}
                                 <li class="long"><a
-                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_orgs.next_page_number }}">下一页</a></li>
+                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_orgs.next_page_number }}">下一页</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>

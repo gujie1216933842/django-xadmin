@@ -40,7 +40,7 @@ class OrgView(View):
         all_orgs = CoursesOrg.objects.filter(**params)
         org_nums = all_orgs.count()  # 筛选条件下的机构总数量
 
-        # 对课程机构进行分页, 第二个参数表示每页设置2页
+        # 第二个参数表示每页设置2页
         paginator = Paginator(all_orgs, 2)
 
         current_city_id = int(city_id) if city_id else ''
