@@ -13,8 +13,7 @@ class OrgView(View):
     """
 
     def get(self, request):
-        all_orgs = CoursesOrg.objects.all()  #
-
+        all_orgs = CoursesOrg.objects.all()
         all_citys = CityDict.objects.all()  # 所有城市
 
         # 取出帅选城市
@@ -24,17 +23,17 @@ class OrgView(View):
         params = {}
         if city_id:
             params = {
-                city_id: city_id
+                'city_id': city_id
             }
 
         if category:
             params = {
-                category: category
+                'category': category
             }
         if city_id and category:
             params = {
-                city_id: city_id,
-                category: category
+                'city_id': city_id,
+                'category': category
 
             }
 
