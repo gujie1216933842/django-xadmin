@@ -100,16 +100,16 @@
                         <ul class="pagelist">
                             {% if all_orgs.has_previous %}
                                 <li class="long"><a
-                                        href="?city={{ city_id }}&page={{ all_orgs.previous_page_number }}">上一页</a>
+                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_orgs.previous_page_number }}">上一页</a>
                                 </li>
                             {% endif %}
                             {% for num  in paginator.page_range %}
                                 {% if num %}
-                                    {% ifequal  num currentPage %}
-                                        <li class="active"><a href="?city={{ city_id }}&page={{ num }}">{{ num }}</a>
+                                    {% ifequal  num current_page %}
+                                        <li class="active"><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}">{{ num }}</a>
                                         </li>
                                     {% else %}
-                                        <li><a href="?city={{ city_id }}&page={{ num }}" class="page">{{ num }}</a>
+                                        <li><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}" class="page">{{ num }}</a>
                                         </li>
                                     {% endifequal %}
                                 {% else %}
@@ -118,7 +118,7 @@
                             {% endfor %}
                             {% if all_orgs.has_next %}
                                 <li class="long"><a
-                                        href="?city={{ city_id }}&page={{ all_orgs.next_page_number }}">下一页</a></li>
+                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_orgs.next_page_number }}">下一页</a></li>
                             {% endif %}
                         </ul>
                     </div>

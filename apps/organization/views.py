@@ -16,6 +16,7 @@ class OrgView(View):
         all_orgs = CoursesOrg.objects.all()
         all_citys = CityDict.objects.all()  # 所有城市
 
+        page = request.GET.get('page', 1)
         # 取出帅选城市
         city_id = request.GET.get('city', '')
         # 取机构类别
@@ -42,11 +43,9 @@ class OrgView(View):
         # 对课程机构进行分页, 第二个参数表示每页设置2页
         paginator = Paginator(all_orgs, 2)
 
-        page = request.GET.get('page', 1)
         current_city_id = int(city_id) if city_id else ''
+        current_page = int(page) if page else ''
 
-        print 'hahahha'
-        print city_id
         try:
             all_orgs = paginator.page(page)
         except PageNotAnInteger:
