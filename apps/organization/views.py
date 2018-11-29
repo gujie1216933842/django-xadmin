@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.views.generic import View
-from .models import CoursesOrg, CityDict
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, JsonResponse
+
+from .models import CoursesOrg, CityDict
 from .forms import UserAskForm
 
 
@@ -67,7 +69,13 @@ class OrgView(View):
 
 
 class AddUserAskView(View):
+    """
+    用户添加咨询
+    """
     def post(self, request):
         userask_form = UserAskForm(request.POST)
         if userask_form.valid():
             user_ask = userask_form.save(commit=True)
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'fail', 'msg': userask_form.errors})
