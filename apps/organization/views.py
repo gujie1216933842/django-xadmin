@@ -37,7 +37,15 @@ class OrgView(View):
                 'category': category
             }
 
-        all_orgs = CoursesOrg.objects.filter(**params)
+        sort = request.GET.get('sort', '')
+        if sort == 'students':
+            order_param = '-students'
+        elif sort == 'courses':
+            order_param = '-course_nums'
+        else:
+            order_param = '-id'
+
+        all_orgs = CoursesOrg.objects.filter(**params).order_by(order_param)
         org_nums = all_orgs.count()  # 筛选条件下的机构总数量
 
         # 第二个参数表示每页设置2页
