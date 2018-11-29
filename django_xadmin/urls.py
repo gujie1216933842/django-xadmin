@@ -36,13 +36,8 @@ urlpatterns = [
     url(r'^forgetpwd/$', ForgetPwdView.as_view(), name="forgetpwd"),
     url(r'^modifypwd/$', ModifyPwdView.as_view(), name="modifypwd"),
 
-
     # 课程机构url配置
-    url(r'^org/', include('organization.urls',namespace='org')),
-
-
-
-
+    url(r'^org/', include('organization.urls', namespace='org')),
 
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
 
