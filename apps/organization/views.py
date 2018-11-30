@@ -74,8 +74,8 @@ class AddUserAskView(View):
     """
     def post(self, request):
         userask_form = UserAskForm(request.POST)
-        if userask_form.valid():
-            user_ask = userask_form.save(commit=True)
+        if userask_form.is_valid():
+            user_ask = userask_form.save(request.POST)
             return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': 'fail', 'msg': userask_form.errors})
