@@ -110,5 +110,23 @@ class OrgCourserView(View):
 
 
 class OrgDescView(View):
-    def get(self,request):
-        pass
+    """
+    机构介绍
+    """
+
+    def get(self, request, org_id):
+        current_page = "course"
+        course_org = CoursesOrg.objects.get(id=int(org_id))
+        return render(request, 'org-detail-desc.html', locals())
+
+
+class OrgTeacherView(View):
+    """
+    机构讲师
+    """
+
+    def get(self, request, org_id):
+        current_page = "course"
+        course_org = CoursesOrg.objects.get(id=int(org_id))
+        all_courses = course_org.courses_set.all()
+        return render(request, 'org-detail-teachers.html', locals())
