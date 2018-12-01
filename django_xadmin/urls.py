@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^org/', include('organization.urls', namespace='org')),
 
     # 课程相关的url配置
-    url(r'^org/', include('courses.urls', namespace='course')),
+    url(r'^course/', include('courses.urls', namespace='course')),
 
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
 
