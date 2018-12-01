@@ -8,6 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import CoursesOrg, CityDict
 from .forms import UserAskForm
+from courses.models import Courses
 
 
 class OrgView(View):
@@ -72,6 +73,7 @@ class AddUserAskView(View):
     """
     用户添加咨询
     """
+
     def post(self, request):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
@@ -79,3 +81,15 @@ class AddUserAskView(View):
             return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': 'fail', 'msg': userask_form.errors})
+
+
+class OrgHomeView(View):
+    """
+    机构首页
+    """
+
+    def get(self, request, org_id):
+        course_org = CoursesOrg.objects.get(id=int(org_id))
+        all_courses = course_org.courses_set.all()[:3]
+        all_teachers = course_org.teacher_set.all()[:1]
+        return render(request, 'org-detail-homepage.html', locals())
