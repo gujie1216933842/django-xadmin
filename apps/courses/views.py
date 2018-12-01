@@ -15,4 +15,6 @@ from django.shortcuts import render
 
 class CourseListView(View):
     def get(self, request):
+        all_courses = Courses.objects.all()
+
         return render(request, 'course-list.html', locals())
