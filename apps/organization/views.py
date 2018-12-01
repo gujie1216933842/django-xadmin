@@ -8,6 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import CoursesOrg, CityDict
 from .forms import UserAskForm
+from operation.models import UserFavorite
 from courses.models import Courses
 
 
@@ -133,5 +134,24 @@ class OrgTeacherView(View):
 
 
 class AddFavView(View):
-    def post(self,request):
-        pass
+    """
+    用户收藏,用户取消收藏
+    """
+    def post(self, request):
+        fav_id = request.POST.get('fav_id', '')
+        fav_type = request.POST.get('fav_type', '')
+
+        if not request.user.is_authenticated():
+            # 判断用户登录状态
+            return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
+        exist_records = UserFavorite.objects.filter(user=request, fav_id=int(fav_id), fav_type=int(fav_type))
+        if exist_records:
+            exist_records.delete()
+        else:
+            user_fav = UserFavorite()
+            if int(fav_id) > 0 and int(fav_type) > 0:
+                user_fav.fav_id = int(fav_id)
+                user_fav.fav_type = int(fav_type)
+                user_fav.save()
+            else:
+                return HttpResponse({'status': 'fail', 'msg': '收藏出错'})
