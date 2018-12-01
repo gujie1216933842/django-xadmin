@@ -130,3 +130,8 @@ class OrgTeacherView(View):
         course_org = CoursesOrg.objects.get(id=int(org_id))
         all_teachers = course_org.teacher_set.all()
         return render(request, 'org-detail-teachers.html', locals())
+
+
+class AddFavView(View):
+    def post(self,request):
+        pass
