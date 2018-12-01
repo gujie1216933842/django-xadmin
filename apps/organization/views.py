@@ -109,3 +109,6 @@ class OrgCourserView(View):
         return render(request, 'org-detail-course.html', locals())
 
 
+class OrgDescView(View):
+    def get(self,request):
+        pass
