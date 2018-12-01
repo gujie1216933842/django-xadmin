@@ -39,6 +39,9 @@ urlpatterns = [
     # 课程机构url配置
     url(r'^org/', include('organization.urls', namespace='org')),
 
+    # 课程相关的url配置
+    url(r'^org/', include('courses.urls', namespace='course')),
+
     url(r'^org_list/$', OrgView.as_view(), name="org_list"),
 
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
