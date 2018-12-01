@@ -4,4 +4,4 @@ logs/
 db.sqlite3
 secure.py
 migrations/
-
+test/
