@@ -115,7 +115,7 @@ class OrgDescView(View):
     """
 
     def get(self, request, org_id):
-        current_page = "course"
+        current_page = "desc"
         course_org = CoursesOrg.objects.get(id=int(org_id))
         return render(request, 'org-detail-desc.html', locals())
 
@@ -126,7 +126,7 @@ class OrgTeacherView(View):
     """
 
     def get(self, request, org_id):
-        current_page = "course"
+        current_page = "teacher"
         course_org = CoursesOrg.objects.get(id=int(org_id))
         all_courses = course_org.courses_set.all()
         return render(request, 'org-detail-teachers.html', locals())
