@@ -42,3 +42,12 @@ class CourseListView(View):
             all_courses = paginator.page(paginator.num_pages)
 
         return render(request, 'course-list.html', locals())
+
+
+class CourseDetailView(View):
+    """
+    课程详情页
+    """
+
+    def get(self, request, course_id):
+        return render(request, 'course-detail.html', locals())

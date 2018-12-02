@@ -6,7 +6,7 @@
 {% block custom_bread %}
     <section>
         <div class="wp">
-            <ul  class="crumbs">
+            <ul class="crumbs">
                 <li><a href="index.html">首页</a>></li>
                 <li>公开课</li>
             </ul>
@@ -15,100 +15,104 @@
 {% endblock %}
 
 {% block content %}
-<section>
-	<div class="wp">
-		<div class="list" style="margin-top:0;">
-			<div class="left layout">
-				<div class="head">
-					<ul class="tab_header">
-						<li class="active"><a href="?sort=">最新 </a></li>
-						<li ><a href="?sort=hot">最热门</a></li>
-						<li ><a href="?sort=students">参与人数</a></li>
-					</ul>
-				</div>
-                <div id="inWindow">
-                    <div class="tab_cont " id="content">
-					<div class="group_list">
-                            {% for course in all_courses %}
-                            <div class="box">
-                                <a href="course-detail.html">
-                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
-                                </a>
-                                <div class="des">
-                                    <a href="course-detail.html">
-                                        <h2>{{ course.name }}</h2>
-                                    </a>
-                                    <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
-                                    <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
-                                </div>
-                                <div class="bottom">
-                                    <a href="course-detail.html"><span class="fl">来自慕课网</span></a>
-                                    <span class="star fr  notlogin
+    <section>
+        <div class="wp">
+            <div class="list" style="margin-top:0;">
+                <div class="left layout">
+                    <div class="head">
+                        <ul class="tab_header">
+                            <li class="active"><a href="?sort=">最新 </a></li>
+                            <li><a href="?sort=hot">最热门</a></li>
+                            <li><a href="?sort=students">参与人数</a></li>
+                        </ul>
+                    </div>
+                    <div id="inWindow">
+                        <div class="tab_cont " id="content">
+                            <div class="group_list">
+                                {% for course in all_courses %}
+                                    <div class="box">
+                                        <a href="course-detail.html">
+                                            <img width="280" height="350" class="scrollLoading"
+                                                 src="{{ MEDIA_URL }}{{ course.image }}"/>
+                                        </a>
+                                        <div class="des">
+                                            <a href="{% url 'course:course_detail' course.id %}">
+                                                <h2>{{ course.name }}</h2>
+                                            </a>
+                                            <span class="fl">时长：<i class="key">{{ course.learn_times }}</i></span>
+                                            <span class="fr">学习人数：{{ course.students }}&nbsp;&nbsp;</span>
+                                        </div>
+                                        <div class="bottom">
+                                            <a href="{% url 'course:course_detail' course.id %}"><span
+                                                    class="fl">来自慕课网</span></a>
+                                            <span class="star fr  notlogin
                                         " data-favid="15">
                                         {{ course.fav_nums }}
                                     </span>
-                                </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
                             </div>
-                            {% endfor %}
 
-					</div>
+                            <div class="pageturn">
+                                <ul class="pagelist">
+                                    {% if all_courses.has_previous %}
+                                        <li class="long"><a
+                                                href="?city={{ city_id }}&ct={{ category }}&page={{ all_courses.previous_page_number }}">上一页</a>
+                                        </li>
+                                    {% endif %}
+                                    {% for num  in paginator.page_range %}
+                                        {% if num %}
+                                            {% ifequal  num current_page %}
+                                                <li class="active"><a
+                                                        href="?city={{ city_id }}&ct={{ category }}&page={{ num }}">{{ num }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}"
+                                                       class="page">{{ num }}</a>
+                                                </li>
+                                            {% endifequal %}
+                                        {% else %}
+                                            <li class="none"><a href="">...</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if all_courses.has_next %}
+                                        <li class="long"><a
+                                                href="?city={{ city_id }}&ct={{ category }}&page={{ all_courses.next_page_number }}">下一页</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
 
-                    <div class="pageturn">
-                        <ul class="pagelist">
-                            {% if all_courses.has_previous %}
-                                <li class="long"><a
-                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_courses.previous_page_number }}">上一页</a>
-                                </li>
-                            {% endif %}
-                            {% for num  in paginator.page_range %}
-                                {% if num %}
-                                    {% ifequal  num current_page %}
-                                        <li class="active"><a
-                                                href="?city={{ city_id }}&ct={{ category }}&page={{ num }}">{{ num }}</a>
-                                        </li>
-                                    {% else %}
-                                        <li><a href="?city={{ city_id }}&ct={{ category }}&page={{ num }}"
-                                               class="page">{{ num }}</a>
-                                        </li>
-                                    {% endifequal %}
-                                {% else %}
-                                    <li class="none"><a href="">...</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if all_courses.has_next %}
-                                <li class="long"><a
-                                        href="?city={{ city_id }}&ct={{ category }}&page={{ all_courses.next_page_number }}">下一页</a>
-                                </li>
-                            {% endif %}
-                        </ul>
+
+                        </div>
                     </div>
-                    
-                    
-				</div>
                 </div>
-			</div>
-			<div class="right layout">
-				<div class="head">热门课程推荐</div>
-				<div class="group_recommend">
-                    {% for hot_course in hot_courses %}
-                    <dl>
-						<dt>
-							<a target="_blank" href="">
-								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course.image }}"/>
-							</a>
-						</dt>
-						<dd>
-							<a target="_blank" href=""><h2> {{ hot_course.name }}</h2></a>
-							<span class="fl">难度：<i class="key">{{ hot_course.get_degree_display }}</i></span>
-						</dd>
-					</dl>
-                    {% endfor %}
+                <div class="right layout">
+                    <div class="head">热门课程推荐</div>
+                    <div class="group_recommend">
+                        {% for hot_course in hot_courses %}
+                            <dl>
+                                <dt>
+                                    <a target="_blank" href="{% url 'course:course_detail' hot_course.id %}">
+                                        <img width="240" height="220" class="scrollLoading"
+                                             src="{{ MEDIA_URL }}{{ hot_course.image }}"/>
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <a target="_blank" href="{% url 'course:course_detail' hot_course.id %}">
+                                        <h2> {{ hot_course.name }}</h2></a>
+                                    <span class="fl">难度：<i class="key">{{ hot_course.get_degree_display }}</i></span>
+                                </dd>
+                            </dl>
+                        {% endfor %}
 
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
 
