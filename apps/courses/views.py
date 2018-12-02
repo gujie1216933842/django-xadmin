@@ -15,10 +15,10 @@ from django.shortcuts import render
 
 class CourseListView(View):
     def get(self, request):
-        all_citys = CityDict.objects.all()  # 所有城市
+        # 热门课程推荐
+        hot_courses = Courses.objects.all().order_by('-click_nums')[:3]
 
         page = request.GET.get('page', 1)
-
         sort = request.GET.get('sort', '')
         if sort == 'students':
             order_param = '-students'
