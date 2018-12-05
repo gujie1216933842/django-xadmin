@@ -6,10 +6,11 @@ from django.db import models
 from datetime import datetime
 from organization.models import CoursesOrg
 
+
 # Create your models here.
 
 class Courses(models.Model):
-    course_org = models.ForeignKey(CoursesOrg,verbose_name=u'课程机构',null=True,blank=True)  #
+    course_org = models.ForeignKey(CoursesOrg, verbose_name=u'课程机构', null=True, blank=True)  #
     name = models.CharField(max_length=50, verbose_name=u'课程名')
     desc = models.CharField(max_length=300, verbose_name=u'课程描述')
     detail = models.TextField(verbose_name=u'课程详情')
@@ -19,6 +20,8 @@ class Courses(models.Model):
     fav_nums = models.IntegerField(default=0, verbose_name=u'收藏人数')
     image = models.ImageField(upload_to='courses/%Y/%m', verbose_name=u'课程图片', max_length=200)
     click_nums = models.IntegerField(default=0, verbose_name=u'课程点击量')
+    category = models.CharField(default='后端开发', max_length=20, verbose_name='课程类别')
+    tag = models.CharField(default='', max_length=20, verbose_name='课程标签')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
