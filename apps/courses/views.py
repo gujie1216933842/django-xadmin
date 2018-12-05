@@ -11,7 +11,7 @@ from organization.models import CityDict
 from operation.models import UserFavorite
 from courses.models import Courses
 from django.shortcuts import render
-
+from operation.models import UserFavorite
 
 class CourseListView(View):
     def get(self, request):
@@ -55,6 +55,17 @@ class CourseDetailView(View):
         # 增加点击数
         course.click_nums += 1
         course.save()
+
+        # 收藏显示
+        has_fav_course =False
+        has_fav_org = False
+
+        if request.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user,fav_id=course_id,fav_type=1):
+                has_fav_course = True
+
+            if UserFavorite.objects.filter(user=request.user,fav_id=course.course_org.id,fav_type=2):
+                has_fav_org = True
 
         tag = course.tag
         if tag:
