@@ -51,4 +51,14 @@ class CourseDetailView(View):
 
     def get(self, request, course_id):
         course = Courses.objects.get(id=course_id)
+
+        # 增加点击数
+        course.click_nums += 1
+        course.save()
+
+        tag = course.tag
+        if tag:
+            relate_courses = Courses.objects.filter(tag=tag)[:1]
+        else:
+            relate_courses = []
         return render(request, 'course-detail.html', locals())
