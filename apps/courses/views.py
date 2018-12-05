@@ -50,6 +50,5 @@ class CourseDetailView(View):
     """
 
     def get(self, request, course_id):
-        course = Courses.objects.filter(id=course_id)
-        print course
+        course = Courses.objects.get(id=course_id)
         return render(request, 'course-detail.html', locals())
