@@ -94,7 +94,7 @@ class CourseCommentView(View):
 
     def get(self, request, course_id):
         course = Courses.objects.get(id=int(course_id))
-        all_comment = CourseComments.objects.filter(course=course)
+        all_comments = CourseComments.objects.filter(course=course)
         return render(request, 'course-comment.html', locals())
 
     def post(self, request):
