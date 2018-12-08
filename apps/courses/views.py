@@ -8,10 +8,11 @@ from django.http import HttpResponse, JsonResponse
 
 from .models import CoursesOrg
 from organization.models import CityDict
-from operation.models import UserFavorite
+from operation.models import UserFavorite, CourseComments
 from courses.models import Courses, CoursesResource
 from django.shortcuts import render
 from operation.models import UserFavorite, CourseComments
+from django.http import JsonResponse
 
 
 class CourseListView(View):
@@ -99,3 +100,22 @@ class CourseCommentView(View):
 
     def post(self, request):
         pass
+
+
+class AddCommentView(View):
+    def post(self, request):
+        if not request.user.is_authenticated():
+            # 判断用户登录状态
+            return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
+        course_id = request.POST.get('course_id', 0)
+        comments = request.POST.get('comment', '')
+        if course_id > 0 and comments:
+            course_comment = CourseComments()
+            course = Courses.objects.get(id=int(course_id))
+            course_comment.course = course
+            course_comment.comments = comments
+            course_comment.user = request.user
+            course_comment.save()
+            return JsonResponse({'status': 'success', 'msg': '添加成功'})
+        else:
+            return JsonResponse({'status': 'fail', 'msg': '添加失败'})
