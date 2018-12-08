@@ -24,9 +24,9 @@ class VedioAdmin(object):
 
 
 class CoursesResourceAdmin(object):
-    list_display = ['lesson', 'name', 'download', 'add_time']
-    search_fields = ['lesson', 'name', 'download']
-    list_filter = ['lesson', 'name', 'download', 'add_time']
+    list_display = ['course', 'name', 'download', 'add_time']
+    search_fields = ['course', 'name', 'download']
+    list_filter = ['course', 'name', 'download', 'add_time']
 
 
 xadmin.site.register(Courses, CoursesAdmin)

@@ -56,7 +56,6 @@ class Lesson(models.Model):
     def get_lesson_vedio(self):
         return self.vedio_set.all()
 
-
     def __unicode__(self):
         return self.name
 
@@ -85,3 +84,6 @@ class CoursesResource(models.Model):
     class Meta:
         verbose_name = u"课程资源"
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name

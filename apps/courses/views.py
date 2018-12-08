@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import CoursesOrg
 from organization.models import CityDict
 from operation.models import UserFavorite
-from courses.models import Courses
+from courses.models import Courses, CoursesResource
 from django.shortcuts import render
 from operation.models import UserFavorite
 
@@ -83,4 +83,5 @@ class CourseInfoView(View):
 
     def get(self, request, course_id):
         course = Courses.objects.get(id=int(course_id))
+        all_resourse = CoursesResource.objects.filter(course=course)
         return render(request, 'course-video.html', locals())
