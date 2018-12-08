@@ -84,9 +84,27 @@ class CourseInfoView(LoginRequiredMixin, View):
     """
 
     def get(self, request, course_id):
-        print('bbbbbbbbbbbbbbb')
         course = Courses.objects.get(id=int(course_id))
         all_resourse = CoursesResource.objects.filter(course=course)
+
+        # 进入该页面,执行把用户和课程关联操作
+        # 查询用户是否已经关联了
+        user_course = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_course:
+            user_course = UserCourse(user=request.user, course=course)
+            user_course.save()
+
+        # 用户课程
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.id for user_course in user_courses]
+
+        all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
+        # 取出所有的课程id
+        course_ids = [user_course.course.id for user_course in all_user_courses]
+        # 获取学过该课程的 用户 学过其他所有的课程
+        relate_courses = Courses.objects.filter(id__in=course_id).order_by('-click_nums')
+        all_resourse = CoursesResource.objects.filter(course=course)
+
         return render(request, 'course-video.html', locals())
 
 
@@ -99,6 +117,13 @@ class CourseCommentView(LoginRequiredMixin, View):  # 注意继承顺序
         course = Courses.objects.get(id=int(course_id))
         all_comments = CourseComments.objects.filter(course=course)
 
+        # 进入该页面,执行把用户和课程关联操作
+        # 查询用户是否已经关联了
+        user_course = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_course:
+            user_course = UserCourse(user=request.user, course=course)
+            user_course.save()
+
         # 用户课程
         user_courses = UserCourse.objects.filter(course=course)
         user_ids = [user_course.id for user_course in user_courses]
@@ -107,7 +132,8 @@ class CourseCommentView(LoginRequiredMixin, View):  # 注意继承顺序
         # 取出所有的课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该课程的 用户 学过其他所有的课程
-        relate_courses = Courses.objects.filter(id__in=course_id)
+        relate_courses = Courses.objects.filter(id__in=course_id).order_by('-click_nums')
+        all_resourse = CoursesResource.objects.filter(course=course)
 
         return render(request, 'course-comment.html', locals())
 
