@@ -28,6 +28,18 @@ class Courses(models.Model):
         verbose_name = u'课程'
         verbose_name_plural = verbose_name
 
+    def get_zj_nums(self):
+        # 获取课程的章节数
+        return self.lesson_set.all().count()
+
+    def get_learn_users(self):
+        # 获取课程的学习人数
+        return self.usercourse_set.all().count()[:5]
+
+    def get_course_lesson(self):
+        # 获取课程所有章节
+        return self.lesson_set.all()
+
     def __unicode__(self):
         return self.name
 
@@ -41,6 +53,10 @@ class Lesson(models.Model):
         verbose_name = u"章节"
         verbose_name_plural = verbose_name
 
+    def get_lesson_vedio(self):
+        return self.vedio_set.all()
+
+
     def __unicode__(self):
         return self.name
 
@@ -50,6 +66,7 @@ class Vedio(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'视频名')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
     url = models.CharField(max_length=200, verbose_name=u'访问地址', default='')
+    learn_times = models.IntegerField(default=0, verbose_name=u'学习时长(分钟)')
 
     class Meta:
         verbose_name = u"视频"
