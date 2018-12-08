@@ -10,6 +10,6 @@ urlpatterns = [
     # 课程详情
     url(r'^detail/(?P<course_id>\d+)/$', CourseDetailView.as_view(), name='course_detail'),
     # 课程详情信息(包括课程章节)
-    url(r'^info/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_detail'),
+    url(r'^info/(?P<course_id>\d+)/$', CourseInfoView.as_view(), name='course_info'),
 
 ]
