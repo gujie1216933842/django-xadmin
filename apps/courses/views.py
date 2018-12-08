@@ -11,7 +11,7 @@ from organization.models import CityDict
 from operation.models import UserFavorite, CourseComments
 from courses.models import Courses, CoursesResource
 from django.shortcuts import render
-from operation.models import UserFavorite, CourseComments
+from operation.models import UserFavorite, CourseComments, UserCourse
 from django.http import JsonResponse
 
 
@@ -96,6 +96,17 @@ class CourseCommentView(View):
     def get(self, request, course_id):
         course = Courses.objects.get(id=int(course_id))
         all_comments = CourseComments.objects.filter(course=course)
+
+        # 用户课程
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.id for user_course in user_courses]
+
+        all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
+        # 取出所有的课程id
+        course_ids = [user_course.course.id for user_course in all_user_courses]
+        # 获取学过该课程的 用户 学过其他所有的课程
+        relate_courses = Courses.objects.filter(id__in=course_id)
+
         return render(request, 'course-comment.html', locals())
 
     def post(self, request):
