@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import CoursesOrg
 from organization.models import CityDict
 from operation.models import UserFavorite, CourseComments
-from courses.models import Courses, CoursesResource
+from courses.models import Courses, CoursesResource, Vedio
 from django.shortcuts import render
 from operation.models import UserFavorite, CourseComments, UserCourse
 from django.http import JsonResponse
@@ -102,7 +102,7 @@ class CourseInfoView(LoginRequiredMixin, View):
         # 取出所有的课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该课程的 用户 学过其他所有的课程
-        relate_courses = Courses.objects.filter(id__in=course_id).order_by('-click_nums')
+        relate_courses = Courses.objects.filter(id__in=course_ids).order_by('-click_nums')
         all_resourse = CoursesResource.objects.filter(course=course)
 
         return render(request, 'course-video.html', locals())
@@ -132,7 +132,7 @@ class CourseCommentView(LoginRequiredMixin, View):  # 注意继承顺序
         # 取出所有的课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
         # 获取学过该课程的 用户 学过其他所有的课程
-        relate_courses = Courses.objects.filter(id__in=course_id).order_by('-click_nums')
+        relate_courses = Courses.objects.filter(id__in=course_ids).order_by('-click_nums')
         all_resourse = CoursesResource.objects.filter(course=course)
 
         return render(request, 'course-comment.html', locals())
@@ -158,3 +158,35 @@ class AddCommentView(View):
             return JsonResponse({'status': 'success', 'msg': '添加成功'})
         else:
             return JsonResponse({'status': 'fail', 'msg': '添加失败'})
+
+
+class VedioPlayView(View):
+    """
+    视频播放页面
+    """
+
+    def get(self, request, vedio_id):
+        vedio = Vedio.objects.get(id=int(vedio_id))
+        course = Vedio.lesson.course
+
+        course.students += 1
+        course.save()
+
+        # 进入该页面,执行把用户和课程关联操作
+        # 查询用户是否已经关联了
+        user_course = UserCourse.objects.filter(user=request.user, course=course)
+        if not user_course:
+            user_course = UserCourse(user=request.user, course=course)
+            user_course.save()
+
+        # 用户课程
+        user_courses = UserCourse.objects.filter(course=course)
+        user_ids = [user_course.id for user_course in user_courses]
+
+        all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
+        # 取出所有的课程id
+        course_ids = [user_course.course.id for user_course in all_user_courses]
+        # 获取学过该课程的 用户 学过其他所有的课程
+        relate_courses = Courses.objects.filter(id__in=course_ids).order_by('-click_nums')
+        all_resourse = CoursesResource.objects.filter(course=course)
+        return render(request, 'course-play.html', locals())
