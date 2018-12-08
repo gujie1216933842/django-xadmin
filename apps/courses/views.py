@@ -13,6 +13,7 @@ from courses.models import Courses, CoursesResource
 from django.shortcuts import render
 from operation.models import UserFavorite, CourseComments, UserCourse
 from django.http import JsonResponse
+from utils.mixin_utils import LoginRequiredMixin
 
 
 class CourseListView(View):
@@ -77,7 +78,7 @@ class CourseDetailView(View):
         return render(request, 'course-detail.html', locals())
 
 
-class CourseInfoView(View):
+class CourseInfoView(LoginRequiredMixin, View):
     """
     课程章节详情
     """
@@ -88,7 +89,7 @@ class CourseInfoView(View):
         return render(request, 'course-video.html', locals())
 
 
-class CourseCommentView(View):
+class CourseCommentView(LoginRequiredMixin, View):  # 注意继承顺序
     """
     课程评论
     """
