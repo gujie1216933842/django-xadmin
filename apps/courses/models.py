@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from datetime import datetime
-from organization.models import CoursesOrg
+from organization.models import CoursesOrg, Teacher
 
 
 # Create your models here.
@@ -22,6 +22,7 @@ class Courses(models.Model):
     click_nums = models.IntegerField(default=0, verbose_name=u'课程点击量')
     category = models.CharField(default='后端开发', max_length=20, verbose_name='课程类别')
     tag = models.CharField(default='', max_length=20, verbose_name='课程标签')
+    teacher = models.ForeignKey(Teacher, verbose_name=u'课程的授课讲师', null=True, blank=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:
