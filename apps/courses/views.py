@@ -108,7 +108,7 @@ class AddCommentView(View):
             # 判断用户登录状态
             return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
         course_id = request.POST.get('course_id', 0)
-        comments = request.POST.get('comment', '')
+        comments = request.POST.get('comments', '')
         if course_id > 0 and comments:
             course_comment = CourseComments()
             course = Courses.objects.get(id=int(course_id))
