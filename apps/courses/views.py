@@ -13,6 +13,7 @@ from courses.models import Courses
 from django.shortcuts import render
 from operation.models import UserFavorite
 
+
 class CourseListView(View):
     def get(self, request):
         # 热门课程推荐
@@ -57,14 +58,14 @@ class CourseDetailView(View):
         course.save()
 
         # 收藏显示
-        has_fav_course =False
+        has_fav_course = False
         has_fav_org = False
 
-        if request.is_authenticated():
-            if UserFavorite.objects.filter(user=request.user,fav_id=course_id,fav_type=1):
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_id=course_id, fav_type=1):
                 has_fav_course = True
 
-            if UserFavorite.objects.filter(user=request.user,fav_id=course.course_org.id,fav_type=2):
+            if UserFavorite.objects.filter(user=request.user, fav_id=course.course_org.id, fav_type=2):
                 has_fav_org = True
 
         tag = course.tag
@@ -73,3 +74,13 @@ class CourseDetailView(View):
         else:
             relate_courses = []
         return render(request, 'course-detail.html', locals())
+
+
+class CourseInfoView(View):
+    """
+    课程章节详情
+    """
+
+    def get(self, request, course_id):
+        course = Courses.objects.get(id=int(course_id))
+        return render(request, 'course-video.html', locals())
