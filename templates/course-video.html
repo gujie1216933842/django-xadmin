@@ -31,7 +31,7 @@
                 <div style="height: 15px" class="path">
                 </div>
                 <div class="hd">
-                    <h2 class="l">django与vuejs实战项目2</h2>
+                    <h2 class="l">{{ course.name }}</h2>
                 </div>
                 <div class="statics clearfix">
                     <div class="static-item ">
@@ -61,7 +61,7 @@
                             <ul class="course-menu clearfix">
                                 <li><a class="ui-tabs-active active" id="learnOn"
                                        href="course-video.html"><span>章节</span></a></li>
-                                <li><a id="commentOn" class="" href="course-comment.html"><span>评论</span></a></li>
+                                <li><a id="commentOn" class="" href="{% url 'course:course_comment' course.id %}"><span>评论</span></a></li>
                             </ul>
                         </div>
                         <div id="notice" class="clearfix">

@@ -11,7 +11,7 @@ from organization.models import CityDict
 from operation.models import UserFavorite
 from courses.models import Courses, CoursesResource
 from django.shortcuts import render
-from operation.models import UserFavorite
+from operation.models import UserFavorite, CourseComments
 
 
 class CourseListView(View):
@@ -85,3 +85,17 @@ class CourseInfoView(View):
         course = Courses.objects.get(id=int(course_id))
         all_resourse = CoursesResource.objects.filter(course=course)
         return render(request, 'course-video.html', locals())
+
+
+class CourseCommentView(View):
+    """
+    课程评论
+    """
+
+    def get(self, request, course_id):
+        course = Courses.objects.get(id=int(course_id))
+        all_comment = CourseComments.objects.filter(course=course)
+        return render(request, 'course-comment.html', locals())
+
+    def post(self, request):
+        pass
