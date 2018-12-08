@@ -3,12 +3,12 @@
 
 {% block title %}课程评论页{% endblock %}
 {% block custom_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/learn-less.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/course-comment.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/muke/common-less.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/muke/course/common-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}" />
 {% endblock %}
 {% block custom_bread %}
     <section>
@@ -60,10 +60,10 @@
                     <div class="content">
                         <div class="mod-tab-menu">
                             <ul class="course-menu clearfix">
-                                <li><a class="ui-tabs-active " id="learnOn" href="{% url 'course:course_info' %}"><span>章节</span></a>
+                                <li><a class="ui-tabs-active " id="learnOn" href="{% url 'course:course_info' course.id %}"><span>章节</span></a>
                                 </li>
                                 <li><a id="commentOn" class="active"
-                                       href="{% url 'course:course_comment' %}"><span>评论</span></a></li>
+                                       href="{% url 'course:course_comment' course.id %}"><span>评论</span></a></li>
                             </ul>
                         </div>
 
