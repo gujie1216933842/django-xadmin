@@ -84,6 +84,7 @@ class CourseInfoView(LoginRequiredMixin, View):
     """
 
     def get(self, request, course_id):
+        print('bbbbbbbbbbbbbbb')
         course = Courses.objects.get(id=int(course_id))
         all_resourse = CoursesResource.objects.filter(course=course)
         return render(request, 'course-video.html', locals())
