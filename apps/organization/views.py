@@ -202,5 +202,5 @@ class TeacherDetailView(View):
     讲师详情页
     """
 
-    def get(self, request):
+    def get(self, request, teacher_id):
         return render(request, 'teacher-detail.html', locals())
