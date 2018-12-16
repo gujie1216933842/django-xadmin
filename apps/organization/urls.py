@@ -17,4 +17,6 @@ urlpatterns = [
     # 讲师列表页
     url(r'^teacher/list/$', TeacherListView.as_view(), name='teacher_list'),
 
+    url(r'^teacher/detail/(?P<teacher_id>\d+)/$', OrgTeacherView.as_view(), name='org_teacher'),
+
 ]

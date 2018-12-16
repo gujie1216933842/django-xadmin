@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 
-from .models import CoursesOrg, CityDict ,Teacher
+from .models import CoursesOrg, CityDict, Teacher
 from .forms import UserAskForm
 from operation.models import UserFavorite
 from courses.models import Courses
@@ -192,6 +192,15 @@ class TeacherListView(View):
     def get(self, request):
         all_teachers = Teacher.objects.all()
 
-        sorted_teachers = all_teachers.order_by('-click_nums')[:3] # 列出点击量最高的3个讲师
+        sorted_teachers = all_teachers.order_by('-click_nums')[:3]  # 列出点击量最高的3个讲师
 
-        return render(request, 'teachers-list.html',locals())
+        return render(request, 'teachers-list.html', locals())
+
+
+class TeacherDetailView(View):
+    """
+    讲师详情页
+    """
+
+    def get(self, request):
+        return render(request, 'teacher-detail.html', locals())
