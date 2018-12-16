@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 
-from .models import CoursesOrg, CityDict
+from .models import CoursesOrg, CityDict ,Teacher
 from .forms import UserAskForm
 from operation.models import UserFavorite
 from courses.models import Courses
@@ -190,4 +190,5 @@ class TeacherListView(View):
     """
 
     def get(self, request):
-        return render(request, 'teachers-list.html')
+        all_teachers = Teacher.objects.all()
+        return render(request, 'teachers-list.html',locals())
