@@ -182,3 +182,12 @@ class AddFavView(View):
                 return JsonResponse({'status': 'success', 'msg': '已收藏'})
             else:
                 return JsonResponse({'status': 'fail', 'msg': '收藏出错'})
+
+
+class TeacherListView(View):
+    """
+    讲师列表页
+    """
+
+    def get(self, request):
+        return render(request, 'teachers-list.html')
