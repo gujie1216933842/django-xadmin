@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^add_fav/$', AddFavView.as_view(), name='add_fav'),
 
     # 讲师列表页
-    url(r'^teacher/$', TeacherListView.as_view(), name='teacher_list'),
+    url(r'^teacher/list/$', TeacherListView.as_view(), name='teacher_list'),
 
 ]
