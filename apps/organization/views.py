@@ -203,4 +203,9 @@ class TeacherDetailView(View):
     """
 
     def get(self, request, teacher_id):
+        teacher = Teacher.objects.get(id=teacher_id)
+        all_courses = Courses.objects.filter(teacher=teacher)
+
+        sorted_teachers = Teacher.objects.all().order_by('-click_nums')[:3]  # 列出点击量最高的3个讲师
+
         return render(request, 'teacher-detail.html', locals())
