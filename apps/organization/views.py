@@ -209,11 +209,13 @@ class TeacherDetailView(View):
         sorted_teachers = Teacher.objects.all().order_by('-click_nums')[:3]  # 列出点击量最高的3个讲师
 
         has_teacher_faved = False
-        if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher_id):
-            has_teacher_faved = True
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher_id):
+                has_teacher_faved = True
 
         has_org_faved = False
-        if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
-            has_teacher_faved = True
+        if request.user.is_authenticated():
+            if UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
+                has_teacher_faved = True
 
         return render(request, 'teacher-detail.html', locals())
