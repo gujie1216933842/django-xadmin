@@ -154,8 +154,6 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            alert('vvvv');
-
             //收藏分享
             function add_fav(current_elem, fav_id, fav_type) {
                 $.ajax({
@@ -183,12 +181,13 @@
             }
 
             $('#jsLeftBtn').on('click', function () {
-                alert(100);
-                add_fav($(this), {{ course.id }}, 1);
+                add_fav($(this), {{ teacher.id }}, 1);
+                {#add_fav($(this), 1, 1);#}
             });
 
             $('#jsRightBtn').on('click', function () {
-                add_fav($(this), {{ course.course_org.id }}, 2);
+                {#add_fav($(this), {{ .course_org.id }}, 2);#}
+                {#add_fav($(this), 1, 2);#}
             });
         });
     </script>
