@@ -281,13 +281,10 @@
             }
 
             $('#jsLeftBtn').on('click', function () {
-                alert(100);
                 add_fav($(this), {{ course.id }}, 1);
             });
-            alert('hahaha');
 
             $('#jsRightBtn').on('click', function () {
-                alert('nihao');
                 add_fav($(this), {{ course.course_org.id }}, 2);
             });
         })
