@@ -169,8 +169,8 @@ class AddFavView(View):
             return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
         exist_records = UserFavorite.objects.filter(user=request.user, fav_id=int(fav_id), fav_type=int(fav_type))
         if exist_records:
-            print ('nnnnnn.....')
             exist_records.delete()
+            return JsonResponse({'status': 'success', 'msg': '收藏'})
         else:
             user_fav = UserFavorite()
             if int(fav_id) > 0 and int(fav_type) > 0:
