@@ -126,7 +126,6 @@ class OrgDescView(View):
     """
     机构介绍
     """
-
     def get(self, request, org_id):
         current_page = "desc"
         course_org = CoursesOrg.objects.get(id=int(org_id))
@@ -143,7 +142,6 @@ class OrgTeacherView(View):
     """
     机构讲师
     """
-
     def get(self, request, org_id):
         current_page = "teacher"
         course_org = CoursesOrg.objects.get(id=int(org_id))
@@ -161,16 +159,17 @@ class AddFavView(View):
     """
     用户收藏,用户取消收藏
     """
-
     def post(self, request):
         fav_id = request.POST.get('fav_id', '')
         fav_type = request.POST.get('fav_type', '')
 
+        print (fav_id, fav_type)
         if not request.user.is_authenticated():
             # 判断用户登录状态
             return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
         exist_records = UserFavorite.objects.filter(user=request.user, fav_id=int(fav_id), fav_type=int(fav_type))
         if exist_records:
+            print ('nnnnnn.....')
             exist_records.delete()
         else:
             user_fav = UserFavorite()
