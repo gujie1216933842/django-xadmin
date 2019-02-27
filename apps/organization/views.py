@@ -162,8 +162,6 @@ class AddFavView(View):
     def post(self, request):
         fav_id = request.POST.get('fav_id', '')
         fav_type = request.POST.get('fav_type', '')
-
-        print (fav_id, fav_type)
         if not request.user.is_authenticated():
             # 判断用户登录状态
             return JsonResponse({'status': 'fail', 'msg': '用户未登录'})
